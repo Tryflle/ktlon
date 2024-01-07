@@ -45,7 +45,7 @@ class ClickListener {
         if (Minecraft.getMinecraft().thePlayer != null && e.button == getEventButton()) {
             cps++
             if (shouldClick) {
-                val ch: Double = Math.random() * 100;
+                val ch: Double = Math.random() * 100
                 if (ch.toInt() >= Data.getData().chance) {
                     println("[K-Debug] Chance missed, value $ch")
                     return
