@@ -9,7 +9,7 @@ import net.weavemc.loader.api.event.WorldEvent
 class WorldLoadListener {
     @SubscribeEvent
     fun onWorldLoad(e: WorldEvent.Load) {
-        Data.getData().apply {
+        Data.dataInstance.apply {
             if (firstJoin) {
                 firstJoin = false
                 Data.saveData(this)
