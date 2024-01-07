@@ -11,8 +11,8 @@ import net.weavemc.loader.api.event.StartGameEvent
 
 class Init: ModInitializer {
     override fun preInit() {
-        println("[KtLon] Loading..")
-        Data.loadData()
+        println("[KtLon] Loading...")
+        Data.initializeData()
         EventBus.subscribe(StartGameEvent.Post::class.java) {
             init()
         }
@@ -24,6 +24,6 @@ class Init: ModInitializer {
         CommandBus.register(Toggle())
         CommandBus.register(Chance())
         EventBus.subscribe(WorldLoadListener())
-        if (Data.instance.enabled) EventBus.subscribe(ClickListener())
+        if (Data.getData().enabled) EventBus.subscribe(ClickListener())
     }
 }

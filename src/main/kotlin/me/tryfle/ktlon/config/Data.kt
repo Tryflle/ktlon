@@ -14,17 +14,20 @@ data class Data(
     var chance: Int = 50
 ) {
     companion object {
-        private val filePath: String = "${System.getProperty("user.home")}/.weave/ktlonconfig.json"
-        private val file = File(filePath)
-        val instance = loadData()
+        private val file = File("${System.getProperty("user.home")}/.weave/ktlonconfig.json")
+        val dataInstance: Data by lazy { getData() }
+
+        fun initializeData() {
+            if (!file.exists()) {
+                saveData(Data())
+            }
+        }
 
         fun saveData(data: Data) {
             file.parentFile.mkdirs()
             file.writeText(Json.encodeToString(data))
         }
 
-        fun loadData(): Data = if (file.exists())
-            Json.decodeFromString<Data>(file.readText())
-        else Data()
+        fun getData(): Data = Json.decodeFromString<Data>(file.readText())
     }
 }

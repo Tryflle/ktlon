@@ -7,14 +7,14 @@ import net.weavemc.loader.api.command.Command
 
 class Toggle: Command("ktltoggle") {
     override fun handle(args: Array<out String>) {
-        if (Data.instance.enabled) {
-            Data.instance.enabled = false
+        if (Data.getData().enabled) {
+            Data.getData().enabled = false
             ClickListener.disable()
         } else {
-            Data.instance.enabled = true
+            Data.getData().enabled = true
             ClickListener.enable()
         }
-        Util.msg("Ktlon has been " + if (Data.instance.enabled) "enabled" else "disabled" + ".")
-        Data.saveData(Data.instance)
+        Util.sendMessage("Ktlon has been " + if (Data.getData().enabled) "enabled" else "disabled" + ".")
+        Data.saveData(Data.getData())
     }
 }

@@ -9,20 +9,22 @@ import net.weavemc.loader.api.event.WorldEvent
 class WorldLoadListener {
     @SubscribeEvent
     fun onWorldLoad(e: WorldEvent.Load) {
-        if (Data.instance.firstJoin) {
-            Data.instance.firstJoin = false
-            Data.saveData(Data.instance)
-            Util.msg("This is your first time using KtLon! Here's a list of commands.")
-            Util.msg("---------------------------------------------------")
-            Util.msg("Commands:")
-            Util.msg("/ktlon - Shows this message.")
-            Util.msg("/ktlcps - Toggles 5 CPS check.")
-            Util.msg("/ktltoggle - Toggles the mod.")
-            Util.msg("/ktlbutton - Toggles between LMB and RMB modes. (Default: LMB)")
-            Util.msg("/ktlchance (int) - Sets the chance of a double click. (Default: 50)")
-            Util.msg("---------------------------------------------------")
-            Util.msg("Remember, you can run the command /ktlon at any time to see a list of commands.")
-            Util.msg("By default, the mod is disabled. You can enable it by running /ktltoggle.")
+        Data.getData().apply {
+            if (firstJoin) {
+                firstJoin = false
+                Data.saveData(this)
+                Util.sendMessage("This is your first time using KtLon! Here's a list of commands.")
+                Util.sendMessage("---------------------------------------------------")
+                Util.sendMessage("Commands:")
+                Util.sendMessage("/ktlon - Shows this message.")
+                Util.sendMessage("/ktlcps - Toggles 5 CPS check.")
+                Util.sendMessage("/ktltoggle - Toggles the mod.")
+                Util.sendMessage("/ktlbutton - Toggles between LMB and RMB modes. (Default: LMB)")
+                Util.sendMessage("/ktlchance (int) - Sets the chance of a double click. (Default: 50)")
+                Util.sendMessage("---------------------------------------------------")
+                Util.sendMessage("Remember, you can run the command /ktlon at any time to see a list of commands.")
+                Util.sendMessage("By default, the mod is disabled. You can enable it by running /ktltoggle.")
+            }
         }
         EventBus.unsubscribe(this)
     }

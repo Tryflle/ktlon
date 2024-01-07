@@ -19,11 +19,11 @@ class ClickListener {
     private var shouldClick: Boolean = false
 
     private fun getEventButton(): Int {
-        return if (Data.loadData().isLmb) 1 else 2
+        return if (Data.getData().isLmb) 1 else 2
     }
 
     private fun robotGetButton(): Int {
-        return if (Data.loadData().isLmb) 16 else 4
+        return if (Data.getData().isLmb) 16 else 4
     }
 
     private fun rClick() {
@@ -46,12 +46,12 @@ class ClickListener {
             cps++
             if (shouldClick) {
                 val ch: Double = Math.random() * 100;
-                if (ch.toInt() >= Data.instance.chance) {
+                if (ch.toInt() >= Data.getData().chance) {
                     println("[K-Debug] Chance missed, value $ch")
                     return
                 }
             }
-            if (Data.instance.fiveCps && cps < 5) return
+            if (Data.getData().fiveCps && cps < 5) return
             rClick()
         }
     }

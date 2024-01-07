@@ -1,6 +1,6 @@
 plugins {
-    kotlin("jvm") version "1.8.21"
-    kotlin("plugin.serialization") version "1.9.21"
+    kotlin("jvm") version "1.9.22"
+    kotlin("plugin.serialization") version "1.9.22"
     id("com.github.weave-mc.weave-gradle") version "649dba7468"
 }
 
@@ -15,11 +15,16 @@ repositories {
 }
 
 dependencies {
+    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.9.22")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json-jvm:1.6.2")
     compileOnly("com.github.weave-mc:weave-loader:v0.2.4")
     compileOnly("org.spongepowered:mixin:0.8.5")
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.1")
 }
 
 tasks.compileJava {
     options.release.set(17)
+}
+
+tasks.compileKotlin {
+    kotlinOptions.jvmTarget = "17"
 }

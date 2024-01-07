@@ -4,10 +4,10 @@ import me.tryfle.ktlon.config.Data
 import me.tryfle.ktlon.util.Util
 import net.weavemc.loader.api.command.Command
 
-class CPS: Command("ktlcps") {
+class CPS : Command("ktlcps") {
     override fun handle(args: Array<out String>) {
-        Data.instance.fiveCps = !Data.instance.fiveCps
-        Util.msg("5 CPS check is now " + if (Data.instance.fiveCps) "enabled" else "disabled" + ".")
-        Data.saveData(Data.instance)
+        Data.dataInstance.fiveCps = !Data.dataInstance.fiveCps
+        Util.sendMessage("5 CPS check is now " + if (Data.dataInstance.fiveCps) "enabled" else "disabled" + ".")
+        Data.saveData(Data.dataInstance)
     }
 }

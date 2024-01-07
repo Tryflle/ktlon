@@ -6,8 +6,8 @@ import net.weavemc.loader.api.command.Command
 
 class Button: Command("ktlbutton") {
     override fun handle(args: Array<out String>) {
-        Data.instance.isLmb = !Data.instance.isLmb
-        Util.msg("Button has been set to " + if (Data.instance.isLmb) "LMB" else "RMB" + ".")
-        Data.saveData(Data.instance)
+        Data.getData().isLmb = !Data.getData().isLmb
+        Util.sendMessage("Button has been set to " + if (Data.getData().isLmb) "LMB" else "RMB" + ".")
+        Data.saveData(Data.getData())
     }
 }
