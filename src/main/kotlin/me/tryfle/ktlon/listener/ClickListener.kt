@@ -1,43 +1,45 @@
 package me.tryfle.ktlon.listener
 
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import me.tryfle.ktlon.config.Data
 import me.tryfle.ktlon.util.TimerUtil
 import me.tryfle.ktlon.util.Util
 import net.minecraft.client.Minecraft
-import net.weavemc.loader.api.event.EventBus
+import net.minecraft.client.settings.KeyBinding
 import net.weavemc.loader.api.event.MouseEvent
 import net.weavemc.loader.api.event.SubscribeEvent
 import net.weavemc.loader.api.event.TickEvent
-
-import java.awt.*
 
 class ClickListener {
 
     private var cps: Int = 0
     private var t: TimerUtil = TimerUtil()
-    private var r = Robot()
     private var shouldClick: Boolean = false
 
     private fun getEventButton(): Int {
-        return if (Data.loadData().isLmb) 1 else 2
+        return if (Data.loadData().isLmb) 0 else 1
     }
 
-    private fun robotGetButton(): Int {
-        return if (Data.loadData().isLmb) 16 else 4
+    private fun getButton(): Int {
+        return if (Data.loadData().isLmb) Minecraft.getMinecraft().gameSettings.keyBindAttack.keyCode
+        else Minecraft.getMinecraft().gameSettings.keyBindUseItem.keyCode
     }
 
-    private fun rClick() {
+    private suspend fun rClick() {
         val sleepTime: Long = Util.randInt(30, 60).toLong()
-        Thread {
-            shouldClick = if (shouldClick) {
-                r.mouseRelease(robotGetButton())
-                r.mousePress(robotGetButton())
-                Thread.sleep(sleepTime)
-                r.mouseRelease(robotGetButton())
-                false
-            } else true
-        }
-        println("[K-Debug] Sleeping for $sleepTime")
+        if (shouldClick) {
+            delay(sleepTime)
+            KeyBinding.setKeyBindState(getButton(), false)
+            KeyBinding.onTick(getButton())
+            delay(sleepTime + Util.randInt(-10, 10).toLong())
+            KeyBinding.setKeyBindState(getButton(), true)
+            KeyBinding.onTick(getButton())
+            KeyBinding.setKeyBindState(getButton(), false)
+            KeyBinding.onTick(getButton())
+            shouldClick = false
+        } else shouldClick = true
     }
 
     @SubscribeEvent
@@ -47,12 +49,11 @@ class ClickListener {
             if (shouldClick) {
                 val ch: Double = Math.random() * 100;
                 if (ch.toInt() >= Data.instance.chance) {
-                    println("[K-Debug] Chance missed, value $ch")
                     return
                 }
             }
             if (Data.instance.fiveCps && cps < 5) return
-            rClick()
+            GlobalScope.launch { rClick() }
         }
     }
 
@@ -61,18 +62,6 @@ class ClickListener {
         if (t.hasPassed(1000)) {
             cps = 0
             t.reset()
-        }
-    }
-
-    companion object {
-        fun disable() {
-            EventBus.unsubscribe(this)
-            println("[K-Debug] Disabled ClickListener")
-        }
-
-        fun enable() {
-            EventBus.subscribe(this)
-            println("[K-Debug] Enabled ClickListener")
         }
     }
 }

@@ -11,18 +11,23 @@ class WorldLoadListener {
     fun onWorldLoad(e: WorldEvent.Load) {
         if (Data.instance.firstJoin) {
             Data.instance.firstJoin = false
+            Data.instance.enabled = false
+            Data.instance.isLmb = true
+            Data.instance.fiveCps = false
+            Data.instance.chance = 50
             Data.saveData(Data.instance)
             Util.msg("This is your first time using KtLon! Here's a list of commands.")
-            Util.msg("---------------------------------------------------")
+            Util.msg("-------------------------------------------------")
             Util.msg("Commands:")
             Util.msg("/ktlon - Shows this message.")
             Util.msg("/ktlcps - Toggles 5 CPS check.")
             Util.msg("/ktltoggle - Toggles the mod.")
             Util.msg("/ktlbutton - Toggles between LMB and RMB modes. (Default: LMB)")
             Util.msg("/ktlchance (int) - Sets the chance of a double click. (Default: 50)")
-            Util.msg("---------------------------------------------------")
+            Util.msg("-------------------------------------------------")
             Util.msg("Remember, you can run the command /ktlon at any time to see a list of commands.")
             Util.msg("By default, the mod is disabled. You can enable it by running /ktltoggle.")
+            //unsure of why this message doesn't send but it's whatever, i'll fix it later i guess.
         }
         EventBus.unsubscribe(this)
     }

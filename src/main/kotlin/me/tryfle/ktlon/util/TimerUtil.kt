@@ -6,7 +6,7 @@ class TimerUtil {
     fun hasPassed(ms: Long): Boolean {
         return getCurrentMS() - lastMS >= ms
     }
-    fun getCurrentMS(): Long {
+    private fun getCurrentMS(): Long {
         return System.nanoTime() / 1000000
     }
     fun reset() {

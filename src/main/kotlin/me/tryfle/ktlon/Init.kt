@@ -10,6 +10,7 @@ import net.weavemc.loader.api.event.EventBus
 import net.weavemc.loader.api.event.StartGameEvent
 
 class Init: ModInitializer {
+
     override fun preInit() {
         println("[KtLon] Loading..")
         Data.loadData()
