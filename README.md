@@ -25,3 +25,5 @@ https://tryitands.ee
 3. The built jar will be in `build/libs` and be called "KtLon-1.0.0-all.jar"
 4. Put the jar in `~/.weave/mods`
 5. Run the game with Weave.
+## Notes
+Thank you @SpoilerRules for helping me make the configuration system and efficient delay.
