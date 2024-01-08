@@ -26,4 +26,4 @@ https://tryitands.ee
 4. Put the jar in `~/.weave/mods`
 5. Run the game with Weave.
 ## Notes
-Thank you @SpoilerRules for helping me make the configuration system and efficient delay.
+Thank you [@SpoilerRules](https://github.com/SpoilerRules) for helping me make the configuration system and efficient delay.
