@@ -7,7 +7,7 @@ plugins {
 }
 
 group = "me.tryfle"
-version = "1.0"
+version = "1.1"
 
 minecraft.version("1.8.9")
 

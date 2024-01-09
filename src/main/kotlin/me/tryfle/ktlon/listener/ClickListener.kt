@@ -44,7 +44,7 @@ class ClickListener {
 
     @SubscribeEvent
     fun onClick(e: MouseEvent) {
-        if (Minecraft.getMinecraft().thePlayer != null && e.button == getEventButton()) {
+        if (Data.instance.enabled && Minecraft.getMinecraft().thePlayer != null && e.button == getEventButton()) {
             cps++
             if (shouldClick) {
                 val ch: Double = Math.random() * 100;
@@ -52,7 +52,7 @@ class ClickListener {
                     return
                 }
             }
-            if (Data.instance.fiveCps && cps < 5) return
+            if (Data.instance.fiveCps && cps < 7) return //for some reason 5 cps is 7 cps lol??
             GlobalScope.launch { rClick() }
         }
     }
