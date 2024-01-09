@@ -46,7 +46,6 @@ class ClickListener {
     @SubscribeEvent
     fun onClick(e: MouseEvent) {
         if (Data.instance.enabled && Minecraft.getMinecraft().thePlayer != null && e.button == getEventButton() && Mouse.isButtonDown(getEventButton()) && !shouldReturn) {
-            println("[K-Debug] MouseEvent fired, condition met.")
             cps++
             if (shouldClick) {
                 val ch: Double = Math.random() * 100;
